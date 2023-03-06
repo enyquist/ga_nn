@@ -1,0 +1,40 @@
+# packages listed here are things that you need to do development but
+# are not needed at runtime
+-c requirements.txt
+
+# building wheels, etc
+pip~=22.2
+setuptools~=67.0
+wheel~=0.38
+pip-tools~=6.8
+
+# make lint
+black~=22.6
+flake8~=5.0
+flake8-docstrings~=1.6
+isort~=5.12
+pre-commit~=2.20
+mypy~=0.931
+
+# make test
+pytest~=7.0
+pytest-cov~=3.0
+pytest-mock~=3.7
+pytest-mpl~=0.14
+
+# make docs
+mkdocstrings~=0.19
+mkdocs-material~=8.3
+mkdocstrings-python~=0.7
+mkdocs-literate-nav>=0.4
+mkdocs-section-index>=0.3
+markdown-callouts>=0.2
+markdown-exec>=0.5
+mkdocs-autolinks-plugin>=0.6
+mkdocs-plugin-progress>=1.2
+
+# dvc
+dvc[s3]~=2.8.0
+
+# code
+-r requirements.txt
