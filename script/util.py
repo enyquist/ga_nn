@@ -6,6 +6,7 @@ from typing import List, Tuple
 
 # third party libraries
 import numpy as np
+import pandas as pd
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import log_loss
 from sklearn.datasets import load_iris, load_wine
@@ -76,11 +77,12 @@ def load_seeds(return_X_y: bool = False) -> Tuple[np.ndarray, np.ndarray]:
         Tuple[np.ndarray, np.ndarray]: The data and the labels.
     """
     # Load the data
-    data = np.loadtxt("data/seeds_dataset.txt", delimiter="\t")
+    data = pd.read_csv("data/seeds_dataset.txt", delimiter="\t")
+    data.columns = ["area", "perimeter", "compactness", "length", "width", "asymmetry_coefficient", "length_groove", "label"]
 
     # Extract the features and the labels
-    X = data[:, :-1]
-    y = data[:, -1]
+    X = data.drop("label", axis=1).values
+    y = data["label"].values
 
     # Return the data
     if return_X_y:
