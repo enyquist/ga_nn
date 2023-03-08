@@ -89,7 +89,7 @@ def train(dataset: str) -> None:
     logger.info(f"Best Parameters: {evolved_estimator.best_params_}")
 
     # save model params with joblib
-    out_dir = REPO_ROOT / "models" / dataset / model_uuid
+    out_dir = REPO_ROOT / "models" / dataset / str(model_uuid)
     out_dir.mkdir(parents=True, exist_ok=True)
     joblib.dump(evolved_estimator.best_params_, out_dir / "params.joblib")
 
