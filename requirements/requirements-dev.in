@@ -8,6 +8,12 @@ setuptools~=67.0
 wheel~=0.38
 pip-tools~=6.8
 
+# Dev tools
+scikit-learn~=1.2
+sklearn-genetic-opt[all]~=0.10
+pandas~=1.5
+ipykernel~=6.21
+
 # make lint
 black~=22.6
 flake8~=5.0
