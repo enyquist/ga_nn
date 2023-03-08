@@ -29,9 +29,8 @@ REPO_ROOT = Path(__name__).resolve().parents[0]
 
 @click.command()
 @click.option("--dataset", type=str, default="iris", help="Name of the dataset. Options are 'iris', 'wine', and 'seeds'.")
-def main(dataset: str) -> None:
-    """Main function."""
-
+def train(dataset: str) -> None:
+    """Train a MLP using Genetic Algorithms."""
 
     # Set up logging
     model_uuid = uuid4()
@@ -91,22 +90,19 @@ def main(dataset: str) -> None:
 
     # save model params with joblib
     out_dir = REPO_ROOT / "models" / dataset / model_uuid
-    joblib.dump(evolved_estimator.best_params_, out_dir / f"{model_uuid}.joblib")
+    out_dir.mkdir(parents=True, exist_ok=True)
+    joblib.dump(evolved_estimator.best_params_, out_dir / "params.joblib")
 
     # Plot the fitness evolution
     plot_fitness_evolution(
         evolved_estimator,
     )
 
-    plt.savefig(out_dir / f"{model_uuid}_fitness_evolution.png")
+    plt.savefig(out_dir / "fitness_evolution.png")
 
     # Plot the search space
     plot_search_space(
         evolved_estimator,
     )
 
-    plt.savefig(out_dir / f"{model_uuid}_search_space.png")
-
-
-if __name__ == "__main__":
-    main()
+    plt.savefig(out_dir / "search_space.png")

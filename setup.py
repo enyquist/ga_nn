@@ -26,5 +26,6 @@ setup(
     license=license_text,
     python_requires="~=3.8",
     install_requires=requirements,
-    packages=find_packages(exclude=("tests", "tests.*", "src")),
+    packages=find_packages(exclude=("tests", "tests.*", "scripts")),
+    entry_points={"console_scripts": ["ga=script._cli._cli:main"]},
 )
