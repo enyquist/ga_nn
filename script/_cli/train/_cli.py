@@ -53,6 +53,7 @@ def train(dataset: str) -> None:
         "clf__estimator__alpha": Continuous(1e-5, 2e-5),
         "clf__estimator__tol": Continuous(1e-2, 1e10, distribution='log-uniform'),
         "clf__estimator__early_stopping": Categorical([True]),
+        "clf__estimator__learning_rate": Categorical(["adaptive"]),
     }
 
     # The base classifier to tune
