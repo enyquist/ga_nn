@@ -34,7 +34,7 @@ def train(dataset: str) -> None:
 
     # Set up logging
     model_uuid = uuid4()
-    logger_path = REPO_ROOT / "models" / dataset / "logs"
+    logger_path = REPO_ROOT / "models" / dataset / "ga" / "logs"
     logger_path.mkdir(parents=True, exist_ok=True)
     logger = create_log_file(logger_path / f"{model_uuid}.log")
 
@@ -90,7 +90,7 @@ def train(dataset: str) -> None:
     logger.info(f"Best Parameters: {evolved_estimator.best_params_}")
 
     # save model params with joblib
-    out_dir = REPO_ROOT / "models" / dataset / str(model_uuid)
+    out_dir = REPO_ROOT / "models" / dataset / "ga" / str(model_uuid)
     out_dir.mkdir(parents=True, exist_ok=True)
     joblib.dump(evolved_estimator.best_params_, out_dir / "params.joblib")
 
@@ -107,3 +107,35 @@ def train(dataset: str) -> None:
     )
 
     plt.savefig(out_dir / "search_space.png")
+
+
+@click.command()
+@click.option("--dataset", type=str, default="iris", help="Name of the dataset. Options are 'iris', 'wine', and 'seeds'.")
+def train_base_model(dataset: str) -> None:
+    """Train a base MLP."""
+
+    # Set up logging
+    model_uuid = uuid4()
+    logger_path = REPO_ROOT / "models" / dataset / "base" / "logs"
+    logger_path.mkdir(parents=True, exist_ok=True)
+    logger = create_log_file(logger_path / f"{model_uuid}.log")
+
+    # Load the data
+    X, y = load_data(dataset=dataset)
+
+    # Split the data
+    random_number = random.randint(0, 100)
+    logger.info(f"Run Random Number: {random_number}")
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=random_number)
+
+    # The base classifier to tune
+    clf = MLPClassifier(
+        early_stopping=True,
+        learning_rate="adaptive",
+    )
+
+     # Train and optimize the estimator
+    clf.fit(X_train, y_train)
+    y_predict_ga = clf.predict(X_test)
+
+    logger.info(f"Test Accuracy: {accuracy_score(y_test, y_predict_ga)*100:.3f}%")

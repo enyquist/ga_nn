@@ -5,7 +5,7 @@ import logging
 import click
 
 # local libraries
-from script._cli.train._cli import train
+from script._cli.train._cli import train, train_base_model
 from script._cli.run_experiments._cli import run_experiments
 
 
@@ -18,6 +18,7 @@ def ga() -> None:
 
 
 ga.add_command(train)
+ga.add_command(train_base_model)
 ga.add_command(run_experiments)
 
 
