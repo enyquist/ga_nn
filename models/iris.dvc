@@ -1,0 +1,5 @@
+outs:
+- md5: 7eca15f46a2517fa3b3fe1a6cb153019.dir
+  size: 3703293
+  nfiles: 100
+  path: iris

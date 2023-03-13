@@ -1,0 +1,5 @@
+outs:
+- md5: 003e15dc15531faa76e4e42fcff54a80.dir
+  size: 3749172
+  nfiles: 100
+  path: seeds

@@ -1,0 +1,5 @@
+outs:
+- md5: d9a3bcf429a79729bf2f4d678b02cd0e.dir
+  size: 3750500
+  nfiles: 100
+  path: wine
